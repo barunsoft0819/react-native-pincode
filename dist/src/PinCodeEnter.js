@@ -7,7 +7,6 @@ const async_storage_1 = require("@react-native-community/async-storage");
 const React = require("react");
 const react_native_1 = require("react-native");
 const Keychain = require("react-native-keychain");
-const react_native_touch_id_1 = require("react-native-touch-id");
 class PinCodeEnter extends React.PureComponent {
     constructor(props) {
         super(props);
@@ -80,42 +79,10 @@ class PinCodeEnter extends React.PureComponent {
         }
     }
     triggerTouchID() {
-        !!react_native_touch_id_1.default && react_native_touch_id_1.default.isSupported()
-            .then(() => {
-            setTimeout(() => {
-                this.launchTouchID();
-            });
-        })
-            .catch((error) => {
-            console.warn('TouchID error', error);
-        });
+        
     }
     async launchTouchID() {
-        const optionalConfigObject = {
-            imageColor: '#e00606',
-            imageErrorColor: '#ff0000',
-            sensorDescription: 'Touch sensor',
-            sensorErrorDescription: 'Failed',
-            cancelText: this.props.textCancelButtonTouchID || 'Cancel',
-            fallbackLabel: 'Show Passcode',
-            unifiedErrors: false,
-            passcodeFallback: this.props.passcodeFallback
-        };
-        try {
-            await react_native_touch_id_1.default.authenticate(this.props.touchIDSentence, Object.assign({}, optionalConfigObject, {
-                title: this.props.touchIDTitle
-            })).then((success) => {
-                this.endProcess(this.props.storedPin || this.keyChainResult);
-            });
-        }
-        catch (e) {
-            if (!!this.props.callbackErrorTouchId) {
-                this.props.callbackErrorTouchId(e);
-            }
-            else {
-                console.log('TouchID error', e);
-            }
-        }
+        
     }
     render() {
         const pin = this.props.storedPin || this.keyChainResult;
