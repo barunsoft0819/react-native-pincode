@@ -126,7 +126,7 @@ const disableLockScreenDefault = false;
 const timePinLockedAsyncStorageNameDefault = "timePinLockedRNPin";
 const pinAttemptsAsyncStorageNameDefault = "pinAttemptsRNPin";
 const pinCodeKeychainNameDefault = "reactNativePinCode";
-const touchIDDisabledDefault = false;
+const touchIDDisabledDefault = true;
 const touchIDTitleDefault = 'Authentication Required';
 
 class PINCode extends React.PureComponent<IProps, IState> {

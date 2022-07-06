@@ -12,7 +12,6 @@ import {
   ViewStyle
 } from 'react-native'
 import * as Keychain from 'react-native-keychain'
-import TouchID from 'react-native-touch-id'
 
 /**
  * Pin Code Enter PIN Page
@@ -142,15 +141,7 @@ class PinCodeEnter extends React.PureComponent<IProps, IState> {
   }
 
   triggerTouchID() {
-    !!TouchID && TouchID.isSupported()
-      .then(() => {
-        setTimeout(() => {
-          this.launchTouchID()
-        })
-      })
-      .catch((error: any) => {
-        console.warn('TouchID error', error)
-      })
+    
   }
 
   endProcess = async (pinCode?: string) => {
@@ -206,32 +197,7 @@ class PinCodeEnter extends React.PureComponent<IProps, IState> {
   }
 
   async launchTouchID() {
-    const optionalConfigObject = {
-      imageColor: '#e00606',
-      imageErrorColor: '#ff0000',
-      sensorDescription: 'Touch sensor',
-      sensorErrorDescription: 'Failed',
-      cancelText: this.props.textCancelButtonTouchID || 'Cancel',
-      fallbackLabel: 'Show Passcode',
-      unifiedErrors: false,
-      passcodeFallback: this.props.passcodeFallback
-    }
-    try {
-      await TouchID.authenticate(
-        this.props.touchIDSentence,
-        Object.assign({}, optionalConfigObject, {
-          title: this.props.touchIDTitle
-        })
-      ).then((success: any) => {
-        this.endProcess(this.props.storedPin || this.keyChainResult)
-      })
-    } catch (e) {
-      if (!!this.props.callbackErrorTouchId) {
-        this.props.callbackErrorTouchId(e)
-      } else {
-        console.log('TouchID error', e)
-      }
-    }
+    
   }
 
   render() {
